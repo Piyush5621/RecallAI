@@ -19,17 +19,18 @@ export async function createDocumentAndSetActiveSource(documentData) {
 
         const documentQuery = `
             INSERT INTO documents (
-                knowledge_base_id,
-                conversation_id,
-                name,
-                original_filename,
-                storage_key,
-                mime_type,
-                file_size,
-                status
-            )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING *;
+            knowledge_base_id,
+            conversation_id,
+            name,
+            original_filename,
+            stored_filename,
+            storage_key,
+            mime_type,
+            file_size,
+            status
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        RETURNING *
         `;
 
         const documentValues = [
@@ -37,7 +38,8 @@ export async function createDocumentAndSetActiveSource(documentData) {
             conversationId,
             name,
             originalFilename,
-            storageKey,
+            storageKey, // stored_filename
+            storageKey, // storage_key
             mimeType,
             fileSize,
             status
